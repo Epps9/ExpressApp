@@ -31,6 +31,22 @@ app.get('/history', (req, res) => {
   res.render('history');
 });
 
+app.use(express.urlencoded({ extended: false })); 
+
+
+app.post('/contact/send-message', (req, res) => {
+
+  const { author, sender, title, message, file } = req.body;
+
+  if(author && sender && title && message && file) {
+    res.render('contact', {isSend: true});
+  }
+  else {
+    res.render('contact', {isError: true});
+  }
+
+});
+
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use((req, res) => {
